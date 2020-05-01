@@ -2,13 +2,6 @@ from torchvision import transforms
 from PIL import Image
 import cv2
 
-<<<<<<< HEAD
-=======
-#img_path = 'lockdown.jpg'
-#detection = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
-#detection.eval()
-
->>>>>>> 6d946e7796e4bb04686f783d31dcaa9e28b127fc
 COCO_INSTANCE_CATEGORY_NAMES = [
     '__background__', 'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
     'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'N/A', 'stop sign',
@@ -24,7 +17,6 @@ COCO_INSTANCE_CATEGORY_NAMES = [
     'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'
 ]
 
-<<<<<<< HEAD
 
 def get_prediction(model, img_path, threshold):
     
@@ -54,25 +46,6 @@ def get_prediction(model, img_path, threshold):
         pred_score = pred_score[:pred_t+1]
       
     return pred_boxes, pred_class, pred_score
-=======
-img = Image.open(img_path) # Load the image
-
-def get_prediction(model, img, threshold):
-  """
-  Returns the predictions in terms of boxes, class and scores
-  """
-  transform = transforms.Compose([transforms.ToTensor()]) # Defing PyTorch Transform
-  img = transform(img) # Apply the transform to the image
-  pred = model([img]) # Pass the image to the model
-  pred_class = [COCO_INSTANCE_CATEGORY_NAMES[i] for i in list(pred[0]['labels'].numpy())] # Get the Prediction Score
-  pred_boxes = [[(i[0], i[1]), (i[2], i[3])] for i in list(pred[0]['boxes'].detach().numpy())] # Bounding boxes
-  pred_score = list(pred[0]['scores'].detach().numpy())
-  pred_t = [pred_score.index(x) for x in pred_score if x > threshold][-1] # Get list of index with score greater than threshold.
-  pred_boxes = pred_boxes[:pred_t+1]
-  pred_class = pred_class[:pred_t+1]
-  pred_score = pred_score[:pred_t+1]
-  return pred_boxes, pred_class, pred_score
->>>>>>> 6d946e7796e4bb04686f783d31dcaa9e28b127fc
 
 def return_one(bx, cl, sc):
   for i,j in enumerate(bx):
